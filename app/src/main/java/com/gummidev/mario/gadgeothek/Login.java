@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
 
         // Set the menu icon instead of the launcher icon.
         final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setHomeAsUpIndicator(R.drawable.ic_action_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
