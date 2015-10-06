@@ -13,13 +13,21 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements LoginFrag.OnFragmentInteractionListener{
+import java.util.ListResourceBundle;
+
+import ch.hsr.mge.gadgeothek.service.LibraryService;
+
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private FragmentActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //SET address to your local IP
+        LibraryService.setServerAddress("http://192.168.178.33:8080");
+        //LibraryService.setServerAddress("localhost:8080");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -39,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements LoginFrag.OnFragm
 
         setupDrawerContent(nvDrawer);
     }
-    
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -67,21 +75,30 @@ public class MainActivity extends AppCompatActivity implements LoginFrag.OnFragm
                         return true;
                     }
                 });
-    }
-
-    public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the planet to show based on
+    } public void selectDrawerItem(MenuItem menuItem) { // Create a new fragment and specify the planet to show based on
         // position
         Fragment fragment = null;
 
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_first_fragment:
                 fragmentClass = LoginFrag.class;
                 break;
             case R.id.nav_second_fragment:
+                fragmentClass = LoanFrag.class;
+                break;
+            case R.id.nav_third_fragment:
+                fragmentClass = ResFrag.class;
+                break;
+            case R.id.nav_fourth_fragment:
+                fragmentClass = ConfigFrag.class;
+                break;
+            case R.id.nav_fifth_fragment:
+                fragmentClass = RegFrag.class;
+                break;
             default:
                 fragmentClass = LoginFrag.class;
+                break;
         }
 
         try {
@@ -101,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements LoginFrag.OnFragm
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction() {
 
     }
 }
