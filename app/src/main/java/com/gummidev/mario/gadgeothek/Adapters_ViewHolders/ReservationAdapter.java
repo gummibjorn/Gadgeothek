@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.hsr.mge.gadgeothek.domain.Gadget;
 import ch.hsr.mge.gadgeothek.domain.Reservation;
 
 /**
@@ -48,6 +49,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ViewHolderReservati
     @Override
     public int getItemCount() {
         return reservations.size();
+    }
+
+    public void remove(int i){
+        reservations.remove(i);
     }
 
     public List<Reservation> getReservations() {

@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.gummidev.mario.gadgeothek.OnFragmentInteractionListener;
 import com.gummidev.mario.gadgeothek.R;
@@ -57,8 +59,38 @@ public class ResFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view  = inflater.inflate(R.layout.fragment_res, container, false);
+        final View view  = inflater.inflate(R.layout.fragment_res, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.resRecyclerView);
+
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                    LibraryService.deleteReservation(adapter.getReservations().get(viewHolder.getAdapterPosition()), new Callback<Boolean>() {
+                        @Override
+                        public void onCompletion(Boolean input) {
+                            adapter.remove(viewHolder.getAdapterPosition());
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(view.getContext(), "Reservation deleted", 2).show();
+                        }
+
+                        @Override
+                        public void onError(String message) {
+
+                        }
+                    });
+            }
+        };
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         FAB = (FloatingActionButton) view.findViewById(R.id.fab);
         FAB.setOnClickListener(new View.OnClickListener() {

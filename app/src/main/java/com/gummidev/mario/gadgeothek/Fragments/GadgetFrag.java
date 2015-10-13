@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.GadgetAdapter;
 import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.LoanAdapter;
+import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.ViewHolderGadget;
 import com.gummidev.mario.gadgeothek.R;
 
 import java.util.List;
@@ -66,6 +68,8 @@ public class GadgetFrag extends Fragment {
         adapter = new GadgetAdapter();
 
         recyclerView.setAdapter(adapter);
+
+
 
         LibraryService.getGadgets(new Callback<List<Gadget>>() {
             @Override

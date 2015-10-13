@@ -1,6 +1,7 @@
 package com.gummidev.mario.gadgeothek.Adapters_ViewHolders;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class GadgetAdapter extends RecyclerView.Adapter<ViewHolderGadget> {
         TextView price = (TextView) v.findViewById(R.id.gadPrice);
         Button button = (Button) v.findViewById(R.id.addReservation);
         ViewHolderGadget viewHolderGadget = new ViewHolderGadget(v, gadName, manufacturer, price, button);
+
+
         return viewHolderGadget;
     }
 
