@@ -8,7 +8,7 @@ public class Reservation {
     private Gadget gadget;
     private Date reservationDate;
     private boolean finished;
-    private int watingPosition;
+    private int waitingPosition;
     private boolean isReady;
 
     public String getReservationId() {
@@ -64,12 +64,12 @@ public class Reservation {
         this.gadget = gadget;
     }
 
-    public int getWatingPosition() {
-        return watingPosition;
+    public int getWaitingPosition() {
+        return waitingPosition;
     }
 
-    public void setWatingPosition(int watingPosition) {
-        this.watingPosition = watingPosition;
+    public void setWaitingPosition(int waitingPosition) {
+        this.waitingPosition = waitingPosition;
     }
 
     public boolean isReady() {

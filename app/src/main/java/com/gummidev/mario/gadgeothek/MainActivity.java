@@ -9,8 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+
+import com.gummidev.mario.gadgeothek.Fragments.ConfigFrag;
+import com.gummidev.mario.gadgeothek.Fragments.LoanFrag;
+import com.gummidev.mario.gadgeothek.Fragments.LoginFrag;
+import com.gummidev.mario.gadgeothek.Fragments.RegFrag;
+import com.gummidev.mario.gadgeothek.Fragments.ResFrag;
 
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
