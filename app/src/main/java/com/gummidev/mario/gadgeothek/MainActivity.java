@@ -1,9 +1,7 @@
 package com.gummidev.mario.gadgeothek;
 
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v4.view.GravityCompat;
@@ -11,21 +9,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.ListResourceBundle;
 
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
-    private FragmentActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //SET address to your local IP
-        LibraryService.setServerAddress("http://192.168.178.33:8080");
+        LibraryService.setServerAddress("http://10.0.2.2:8080");
         //LibraryService.setServerAddress("localhost:8080");
 
         super.onCreate(savedInstanceState);
@@ -75,25 +71,28 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                         return true;
                     }
                 });
-    } public void selectDrawerItem(MenuItem menuItem) { // Create a new fragment and specify the planet to show based on
+    }
+
+
+    public void selectDrawerItem(MenuItem menuItem) { // Create a new fragment and specify the planet to show based on
         // position
         Fragment fragment = null;
 
         Class fragmentClass;
         switch (menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
+            case R.id.nav_login_fragment:
                 fragmentClass = LoginFrag.class;
                 break;
-            case R.id.nav_second_fragment:
+            case R.id.nav_ausleihe_fragment:
                 fragmentClass = LoanFrag.class;
                 break;
-            case R.id.nav_third_fragment:
+            case R.id.nav_reservation_fragment:
                 fragmentClass = ResFrag.class;
                 break;
-            case R.id.nav_fourth_fragment:
+            case R.id.nav_einstellung_fragment:
                 fragmentClass = ConfigFrag.class;
                 break;
-            case R.id.nav_fifth_fragment:
+            case R.id.nav_registration_fragment:
                 fragmentClass = RegFrag.class;
                 break;
             default:

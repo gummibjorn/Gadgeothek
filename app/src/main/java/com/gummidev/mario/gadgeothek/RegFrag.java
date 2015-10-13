@@ -1,11 +1,10 @@
 package com.gummidev.mario.gadgeothek;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -71,6 +70,9 @@ public class RegFrag extends Fragment implements View.OnClickListener {
         LibraryService.register(mail, password, name, matnummer, new Callback<Boolean>() {
                     @Override
                     public void onCompletion(Boolean input) {
+                        NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
+                        nav.setCheckedItem(R.id.nav_login_fragment);
+                        getActivity().setTitle("Login");
                         getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
                     }
 

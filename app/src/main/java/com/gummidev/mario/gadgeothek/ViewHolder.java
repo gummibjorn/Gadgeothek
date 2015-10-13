@@ -9,11 +9,15 @@ import android.widget.TextView;
  */
 public class ViewHolder extends RecyclerView.ViewHolder {
     public View parent;
-    public TextView textView;
+    public TextView gadName;
+    public TextView pickupDate;
+    public TextView daysLeft;
 
-    public ViewHolder(View parent, TextView textView) {
+    public ViewHolder(View parent, TextView gadName, TextView pickupDate, TextView daysLeft) {
         super(parent);
         this.parent = parent;
-        this.textView = textView;
+        this.gadName = gadName;
+        this.pickupDate = pickupDate;
+        this.daysLeft = daysLeft;
     }
 }

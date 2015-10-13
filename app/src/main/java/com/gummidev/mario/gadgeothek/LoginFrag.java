@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,9 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
         LibraryService.login(email, password, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
+                NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
+                nav.setCheckedItem(R.id.nav_ausleihe_fragment);
+                getActivity().setTitle("Ausleihe");
                 getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).commit();
             }
 
