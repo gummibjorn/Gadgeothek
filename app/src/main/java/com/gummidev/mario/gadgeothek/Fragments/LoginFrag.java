@@ -1,5 +1,7 @@
 package com.gummidev.mario.gadgeothek.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -42,6 +44,9 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         Button regButton = (Button) view.findViewById(R.id.email_sign_in_button);
+        String loginName = getActivity().getPreferences(Context.MODE_PRIVATE).getString("login_name", "");
+        EditText loginField = (EditText) view.findViewById(R.id.email);
+        loginField.setText(loginName);
         regButton.setOnClickListener(this);       // Inflate the layout for this fragment
         return view;
     }
@@ -53,13 +58,17 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
 
     private void login() {
         EditText editText = (EditText) getView().findViewById(R.id.email);
-        String email = editText.getText().toString();
+        final String email = editText.getText().toString();
         editText = (EditText) getView().findViewById(R.id.password);
         String password = editText.getText().toString();
 
         LibraryService.login(email, password, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
+                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("login_name", email);
+                editor.commit();
                 NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
                 nav.setCheckedItem(R.id.nav_ausleihe_fragment);
                 getActivity().setTitle("Ausleihe");
