@@ -1,11 +1,13 @@
 package ch.hsr.mge.gadgeothek.service;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,16 +27,10 @@ public class LibraryService {
         serverUrl = address;
     }
 
-    private static void loadConfig(){
-
-    }
-
     public static String getServerAddress(){
-        if(serverUrl==null){
-            loadConfig();
-        }
        return serverUrl;
     }
+
     public static boolean isLoggedIn() {
         return token != null;
     }

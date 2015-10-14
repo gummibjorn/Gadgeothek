@@ -1,5 +1,6 @@
 package com.gummidev.mario.gadgeothek;
 
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,13 @@ import com.gummidev.mario.gadgeothek.Fragments.LoginFrag;
 import com.gummidev.mario.gadgeothek.Fragments.RegFrag;
 import com.gummidev.mario.gadgeothek.Fragments.ResFrag;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -26,8 +34,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //SET address to your local IP
-        LibraryService.setServerAddress("http://10.0.2.2:8080");
-        //LibraryService.setServerAddress("localhost:8080");
+        String remote_gadgeothek;
+
+        remote_gadgeothek = getPreferences(Context.MODE_PRIVATE).getString("remote_gadgeothek", "http://mge1.dev.ifs.hsr.ch");
+
+        LibraryService.setServerAddress(remote_gadgeothek);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
