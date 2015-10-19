@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.gummidev.mario.gadgeothek.Fragments.ConfigFrag;
 import com.gummidev.mario.gadgeothek.Fragments.LoanFrag;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         ab.setHomeAsUpIndicator(R.drawable.ic_action_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        final NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
         setupDrawerContent(nvDrawer);
 
@@ -59,6 +61,49 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
         }
+
+        ImageButton login = (ImageButton) findViewById(R.id.imageButton);
+        ImageButton loans = (ImageButton) findViewById(R.id.imageButton2);
+        ImageButton reg = (ImageButton) findViewById(R.id.imageButton3);
+        ImageButton settings = (ImageButton) findViewById(R.id.imageButton4);
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nvDrawer.setCheckedItem(R.id.nav_login_fragment);
+                setTitle("Login");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
+            }
+        });
+
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nvDrawer.setCheckedItem(R.id.nav_registration_fragment);
+                setTitle("Registration");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new ResFrag()).commit();
+            }
+        });
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nvDrawer.setCheckedItem(R.id.nav_ausleihe_fragment);
+                setTitle("Loans");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).commit();
+            }
+        });
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nvDrawer.setCheckedItem(R.id.nav_einstellung_fragment);
+                setTitle("Settings");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new ConfigFrag()).commit();
+            }
+        });
 
     }
 

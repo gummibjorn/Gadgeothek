@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.LoanAdapter;
 import com.gummidev.mario.gadgeothek.R;
@@ -52,31 +53,35 @@ public class LoanFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        
-        View view  = inflater.inflate(R.layout.fragment_loan, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        View view = inflater.inflate(R.layout.fragment_loan, container, false);
 
-        recyclerView.setHasFixedSize(true);
+        if(LibraryService.isLoggedIn()) {
+            recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
 
-        adapter = new LoanAdapter();
+            layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(adapter);
+            adapter = new LoanAdapter();
 
-        LibraryService.getLoansForCustomer(new Callback<List<Loan>>() {
-            @Override
-            public void onCompletion(List<Loan> input) {
-                adapter.setLoans(input);
-                adapter.notifyDataSetChanged();
-            }
+            recyclerView.setAdapter(adapter);
 
-            @Override
-            public void onError(String message) {
+            LibraryService.getLoansForCustomer(new Callback<List<Loan>>() {
+                @Override
+                public void onCompletion(List<Loan> input) {
+                    adapter.setLoans(input);
+                    adapter.notifyDataSetChanged();
+                }
 
-            }
-        });
+                @Override
+                public void onError(String message) {
+
+                }
+            });
+        }else{
+            Toast.makeText(getActivity(), "Login first please!", 3).show();
+        }
 
         return view;
     }

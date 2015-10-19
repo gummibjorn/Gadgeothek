@@ -60,17 +60,19 @@ public class ResFrag extends Fragment {
                              Bundle savedInstanceState) {
 
         final View view  = inflater.inflate(R.layout.fragment_res, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.resRecyclerView);
+
+        if(LibraryService.isLoggedIn()) {
+            recyclerView = (RecyclerView) view.findViewById(R.id.resRecyclerView);
 
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
 
-            @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                @Override
+                public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                     LibraryService.deleteReservation(adapter.getReservations().get(viewHolder.getAdapterPosition()), new Callback<Boolean>() {
                         @Override
                         public void onCompletion(Boolean input) {
@@ -84,44 +86,47 @@ public class ResFrag extends Fragment {
 
                         }
                     });
-            }
-        };
+                }
+            };
 
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
 
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        FAB = (FloatingActionButton) view.findViewById(R.id.fab);
-        FAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().setTitle("Gadgets");
-                getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new GadgetFrag()).commit();
-            }
-        });
+            FAB = (FloatingActionButton) view.findViewById(R.id.fab);
+            FAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().setTitle("Gadgets");
+                    getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new GadgetFrag()).commit();
+                }
+            });
 
-        recyclerView.setHasFixedSize(true);
+            recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+            layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ReservationAdapter();
+            adapter = new ReservationAdapter();
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
 
-        LibraryService.getReservationsForCustomer(new Callback<List<Reservation>>() {
-            @Override
-            public void onCompletion(List<Reservation> input) {
-                adapter.setReservations(input);
-                adapter.notifyDataSetChanged();
-            }
+            LibraryService.getReservationsForCustomer(new Callback<List<Reservation>>() {
+                @Override
+                public void onCompletion(List<Reservation> input) {
+                    adapter.setReservations(input);
+                    adapter.notifyDataSetChanged();
+                }
 
-            @Override
-            public void onError(String message) {
+                @Override
+                public void onError(String message) {
 
-            }
-        });
+                }
+            });
+        }else{
+            Toast.makeText(getActivity(), "Login first please!", 3).show();
+        }
 
         return view;
     }
