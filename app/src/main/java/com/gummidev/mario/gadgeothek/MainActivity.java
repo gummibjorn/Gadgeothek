@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.gummidev.mario.gadgeothek.Fragments.ConfigFrag;
+import com.gummidev.mario.gadgeothek.Fragments.HomeFragment;
 import com.gummidev.mario.gadgeothek.Fragments.LoanFrag;
 import com.gummidev.mario.gadgeothek.Fragments.LoginFrag;
 import com.gummidev.mario.gadgeothek.Fragments.RegFrag;
@@ -38,6 +39,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).addToBackStack("Home").commit();
+
+        setupDrawer();
+    }
+
+    public void setupDrawer() {
+
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,57 +63,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         final NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
         setupDrawerContent(nvDrawer);
-
-        if (!LibraryService.isLoggedIn()) {
-            nvDrawer.setCheckedItem(R.id.nav_login_fragment);
-            setTitle("Login");
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
-        }
-
-        ImageButton login = (ImageButton) findViewById(R.id.imageButton);
-        ImageButton loans = (ImageButton) findViewById(R.id.imageButton2);
-        ImageButton reg = (ImageButton) findViewById(R.id.imageButton3);
-        ImageButton settings = (ImageButton) findViewById(R.id.imageButton4);
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nvDrawer.setCheckedItem(R.id.nav_login_fragment);
-                setTitle("Login");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
-            }
-        });
-
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nvDrawer.setCheckedItem(R.id.nav_registration_fragment);
-                setTitle("Registration");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new ResFrag()).commit();
-            }
-        });
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nvDrawer.setCheckedItem(R.id.nav_ausleihe_fragment);
-                setTitle("Loans");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).commit();
-            }
-        });
-        reg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                nvDrawer.setCheckedItem(R.id.nav_einstellung_fragment);
-                setTitle("Settings");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, (Fragment) new ConfigFrag()).commit();
-            }
-        });
-
     }
 
 
@@ -116,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -143,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         Class fragmentClass;
         switch (menuItem.getItemId()) {
+            case R.id.nav_home_fragment:
+                fragmentClass = HomeFragment.class;
+                break;
             case R.id.nav_login_fragment:
                 fragmentClass = LoginFrag.class;
                 break;
@@ -171,11 +131,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack((String) menuItem.getTitle()).commit();
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
     }
 

@@ -17,28 +17,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Gadget" />
+                android:text="Gadget"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Reservation Date" />
+                android:text="Reservation Date"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Waiting Position" />
+                android:text="Waiting Position"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Is Ready" />
+                android:text="Is Ready"
+                android:textStyle="bold" />
 
         </TableRow>
 

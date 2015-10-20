@@ -3,6 +3,8 @@ package com.gummidev.mario.gadgeothek.Fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.gummidev.mario.gadgeothek.MainActivity;
 import com.gummidev.mario.gadgeothek.OnFragmentInteractionListener;
 import com.gummidev.mario.gadgeothek.R;
 import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.ReservationAdapter;
@@ -29,15 +32,17 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
  * create an instance of this fragment.
  */
 public class ResFrag extends Fragment {
-   private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private ReservationAdapter adapter;
     private Toolbar toolbar;
     private FloatingActionButton FAB;
+    private DrawerLayout mDrawer;
 
     /**
      * Use this factory method to create a new instance of
+     *
      * @return A new instance of fragment ResFrag.
      */
     // TODO: Rename and change types and number of parameters
@@ -59,10 +64,15 @@ public class ResFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view  = inflater.inflate(R.layout.fragment_res, container, false);
+        final View view = inflater.inflate(R.layout.fragment_res, container, false);
 
-        if(LibraryService.isLoggedIn()) {
+        if (LibraryService.isLoggedIn()) {
             recyclerView = (RecyclerView) view.findViewById(R.id.resRecyclerView);
+
+            MainActivity activity = (MainActivity) getActivity();
+            activity.setupDrawer();
+
+            getActivity().setTitle("Reservation");
 
 
             ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -94,21 +104,13 @@ public class ResFrag extends Fragment {
 
             itemTouchHelper.attachToRecyclerView(recyclerView);
 
-            FAB = (FloatingActionButton) view.findViewById(R.id.fab);
-            FAB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().setTitle("Gadgets");
-                    getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new GadgetFrag()).commit();
-                }
-            });
+            adapter = new ReservationAdapter();
+
 
             recyclerView.setHasFixedSize(true);
 
             layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
-
-            adapter = new ReservationAdapter();
 
             recyclerView.setAdapter(adapter);
 
@@ -124,10 +126,21 @@ public class ResFrag extends Fragment {
 
                 }
             });
-        }else{
+
+            FAB = (FloatingActionButton) view.findViewById(R.id.fab);
+            FAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    GadgetFrag frag = GadgetFrag.newInstance();
+                    getFragmentManager().beginTransaction().replace(R.id.flContent, frag).addToBackStack("Gadgets").commit();
+                    frag.setReslist(adapter.getReservations());
+                }
+            });
+            return view;
+        } else {
             Toast.makeText(getActivity(), "Login first please!", 3).show();
+            return null;
         }
 
-        return view;
     }
 }

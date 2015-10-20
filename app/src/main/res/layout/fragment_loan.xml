@@ -17,21 +17,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Gadget" />
+                android:text="Gadget"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ausleihe" />
+                android:text="Ausleihe"
+                android:textStyle="bold"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Rückgabe" />
+                android:text="Rückgabe"
+                android:textStyle="bold"
+                android:textSize="20dp" />
 
         </TableRow>
 

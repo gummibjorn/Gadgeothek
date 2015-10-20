@@ -71,8 +71,7 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
                 editor.commit();
                 NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
                 nav.setCheckedItem(R.id.nav_ausleihe_fragment);
-                getActivity().setTitle("Ausleihe");
-                getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).addToBackStack("Ausleihe").commit();
             }
 
             @Override

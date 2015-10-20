@@ -47,6 +47,7 @@ public class ConfigFrag extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_config, container, false);
+        getActivity().setTitle("Config");
         final EditText editText = (EditText) view.findViewById(R.id.serverConf);
         editText.setText(LibraryService.getServerAddress());
         Button save = (Button) view.findViewById(R.id.button2);

@@ -52,6 +52,7 @@ public class RegFrag extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("Registration");
         View view = inflater.inflate(R.layout.fragment_reg, container, false);
         Button regButton = (Button) view.findViewById(R.id.button);
         regButton.setOnClickListener(this);
@@ -75,7 +76,7 @@ public class RegFrag extends Fragment implements View.OnClickListener {
                         NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
                         nav.setCheckedItem(R.id.nav_login_fragment);
                         getActivity().setTitle("Login");
-                        getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).addToBackStack("Login").commit();
                     }
 
                     @Override

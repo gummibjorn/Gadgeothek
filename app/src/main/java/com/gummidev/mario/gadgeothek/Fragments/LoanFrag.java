@@ -1,5 +1,6 @@
 package com.gummidev.mario.gadgeothek.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.gummidev.mario.gadgeothek.Adapters_ViewHolders.LoanAdapter;
@@ -49,14 +52,28 @@ public class LoanFrag extends Fragment {
 
     }
 
+    public static void hide_keyboard(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if(view == null) {
+            view = new View(activity);
+        }
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_loan, container, false);
-
         if(LibraryService.isLoggedIn()) {
+
+            hide_keyboard(getActivity());
+
+            View view = inflater.inflate(R.layout.fragment_loan, container, false);
             recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+            getActivity().setTitle("Loans");
 
             recyclerView.setHasFixedSize(true);
 
@@ -79,11 +96,12 @@ public class LoanFrag extends Fragment {
 
                 }
             });
+            return view;
         }else{
             Toast.makeText(getActivity(), "Login first please!", 3).show();
+            return null;
         }
 
-        return view;
     }
 
 

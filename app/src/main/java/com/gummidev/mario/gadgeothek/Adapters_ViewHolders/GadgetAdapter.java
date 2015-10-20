@@ -2,6 +2,7 @@ package com.gummidev.mario.gadgeothek.Adapters_ViewHolders;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import com.gummidev.mario.gadgeothek.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ch.hsr.mge.gadgeothek.domain.Gadget;
 import ch.hsr.mge.gadgeothek.domain.Loan;
+import ch.hsr.mge.gadgeothek.domain.Reservation;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
@@ -26,6 +29,9 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 public class GadgetAdapter extends RecyclerView.Adapter<ViewHolderGadget> {
 
     private List<Gadget> gadgets = new ArrayList<>();
+
+    public GadgetAdapter() {
+    }
 
 
     @Override
@@ -39,12 +45,12 @@ public class GadgetAdapter extends RecyclerView.Adapter<ViewHolderGadget> {
         Button button = (Button) v.findViewById(R.id.addReservation);
         ViewHolderGadget viewHolderGadget = new ViewHolderGadget(v, gadName, manufacturer, price, button);
 
-
         return viewHolderGadget;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderGadget holder, final int i) {
+        //only show gadgets not loaned
         holder.name.setText(gadgets.get(i).getName());
         holder.manufacturer.setText(gadgets.get(i).getManufacturer());
         holder.price.setText(new Double(gadgets.get(i).getPrice()).toString());
@@ -56,8 +62,10 @@ public class GadgetAdapter extends RecyclerView.Adapter<ViewHolderGadget> {
                     public void onCompletion(Boolean input) {
                         if (input) {
                             Toast.makeText(v.getContext(), "Reservation successful", 2).show();
+                            gadgets.remove(i);
+                            notifyDataSetChanged();
                         } else {
-                            Toast.makeText(v.getContext(), "Too many reservations or allready reserved", 2).show();
+                            Toast.makeText(v.getContext(), "Too many reservations", 2).show();
                         }
                     }
 
@@ -68,6 +76,7 @@ public class GadgetAdapter extends RecyclerView.Adapter<ViewHolderGadget> {
                 });
             }
         });
+
     }
 
     @Override

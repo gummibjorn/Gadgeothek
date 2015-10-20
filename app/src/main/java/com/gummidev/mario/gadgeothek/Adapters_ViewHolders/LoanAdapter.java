@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gummidev.mario.gadgeothek.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
