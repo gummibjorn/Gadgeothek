@@ -73,7 +73,6 @@ public class LoanFrag extends Fragment {
 
             View view = inflater.inflate(R.layout.fragment_loan, container, false);
             recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-            getActivity().setTitle("Loans");
 
             recyclerView.setHasFixedSize(true);
 
@@ -102,11 +101,5 @@ public class LoanFrag extends Fragment {
             return null;
         }
 
-    }
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }

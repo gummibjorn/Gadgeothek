@@ -1,5 +1,6 @@
 package com.gummidev.mario.gadgeothek.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -85,4 +86,6 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         login();
     }
+
 }
+

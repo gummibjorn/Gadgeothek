@@ -1,5 +1,6 @@
 package com.gummidev.mario.gadgeothek.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -52,7 +53,6 @@ public class RegFrag extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Registration");
         View view = inflater.inflate(R.layout.fragment_reg, container, false);
         Button regButton = (Button) view.findViewById(R.id.button);
         regButton.setOnClickListener(this);
