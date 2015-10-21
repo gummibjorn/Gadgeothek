@@ -1,5 +1,6 @@
 package com.gummidev.mario.gadgeothek;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,6 +23,7 @@ import com.gummidev.mario.gadgeothek.Fragments.LoginFrag;
 import com.gummidev.mario.gadgeothek.Fragments.RegFrag;
 import com.gummidev.mario.gadgeothek.Fragments.ResFrag;
 
+import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -42,18 +45,12 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).addToBackStack("Home").commit();
 
-        setupDrawer();
-    }
-
-    public void setupDrawer() {
+         // Find our drawer view
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        // Find our drawer view
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Set the menu icon instead of the launcher icon.
         final ActionBar ab = getSupportActionBar();
@@ -62,7 +59,21 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         final NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
+        LayoutInflater inflater = getLayoutInflater();
+
+        View listHeaderView = inflater.inflate(R.layout.header_menu,null, false);
+
+        nvDrawer.addHeaderView(listHeaderView);
+
         setupDrawerContent(nvDrawer);
+
+        if(LibraryService.isLoggedIn()){
+            nvDrawer.getMenu().findItem(R.id.nav_login_fragment).setVisible(false);
+            nvDrawer.getMenu().findItem(R.id.nav_registration_fragment).setVisible(false);
+        }else {
+            nvDrawer.getMenu().findItem(R.id.nav_ausleihe_fragment).setVisible(false);
+            nvDrawer.getMenu().findItem(R.id.nav_reservation_fragment).setVisible(false);
+        }
     }
 
 
@@ -135,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         // Highlight the selected item, update the title, and close the drawer
         menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
     }
 

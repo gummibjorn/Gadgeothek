@@ -93,6 +93,7 @@ public class GadgetFrag extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
         LibraryService.getGadgets(new Callback<List<Gadget>>() {
             @Override
             public void onCompletion(List<Gadget> input) {
@@ -120,5 +121,10 @@ public class GadgetFrag extends Fragment {
         });
 
         return view;
+    }
+     @Override
+    public void onStart() {
+        getActivity().setTitle("Gadgets");
+        super.onResume();
     }
 }

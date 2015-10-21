@@ -2,21 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:icon="@drawable/ic_action_home"
             android:id="@+id/nav_home_fragment"
             android:title="Home" />
         <item
+            android:icon="@drawable/ic_account_box"
             android:id="@+id/nav_login_fragment"
             android:title="Login" />
         <item
+            android:icon="@drawable/ic_settings_cell"
             android:id="@+id/nav_ausleihe_fragment"
             android:title="Ausleihe" />
         <item
+            android:icon="@drawable/ic_shopping_cart"
             android:id="@+id/nav_reservation_fragment"
             android:title="Reservation" />
         <item
+            android:icon="@drawable/ic_action_settings"
             android:id="@+id/nav_einstellung_fragment"
             android:title="Einstellungen" />
         <item
+            android:icon="@drawable/ic_today"
             android:id="@+id/nav_registration_fragment"
             android:title="Registration" />
     </group>

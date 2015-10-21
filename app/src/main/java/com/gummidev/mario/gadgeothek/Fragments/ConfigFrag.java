@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.gummidev.mario.gadgeothek.R;
 
@@ -18,18 +19,19 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 /**
  * A simple {@link Fragment} subclass.
-* Use the {@link ConfigFrag#newInstance} factory method to
+ * Use the {@link ConfigFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ConfigFrag extends Fragment {
 
     /**
      * Use this factory method to create a new instance of
-    * @return A new instance of fragment ConfigFrag.
+     *
+     * @return A new instance of fragment ConfigFrag.
      */
     public static ConfigFrag newInstance(String param1, String param2) {
         ConfigFrag fragment = new ConfigFrag();
-       return fragment;
+        return fragment;
     }
 
     public ConfigFrag() {
@@ -40,7 +42,7 @@ public class ConfigFrag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-   }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +61,17 @@ public class ConfigFrag extends Fragment {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("remote_gadgeothek", editText.getText().toString());
                 editor.commit();
+                Toast.makeText(getActivity(), "Server Changed", Toast.LENGTH_SHORT).show();
+                getActivity().setTitle("Login");
+                getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoginFrag()).addToBackStack("Login").commit();
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        getActivity().setTitle("Settings");
+        super.onResume();
     }
 }

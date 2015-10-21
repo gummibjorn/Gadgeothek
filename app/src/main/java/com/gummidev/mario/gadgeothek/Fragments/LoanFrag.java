@@ -102,4 +102,10 @@ public class LoanFrag extends Fragment {
         }
 
     }
+
+    @Override
+    public void onStart() {
+        getActivity().setTitle("Loans");
+        super.onResume();
+    }
 }

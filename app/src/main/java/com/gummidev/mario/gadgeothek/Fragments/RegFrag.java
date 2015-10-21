@@ -95,6 +95,12 @@ public class RegFrag extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onStart() {
+        super.onResume();
+        getActivity().setTitle("Registration");
+    }
+
+    @Override
     public void onClick(View v) {
         register();
     }

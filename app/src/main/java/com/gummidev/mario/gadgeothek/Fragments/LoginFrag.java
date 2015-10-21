@@ -66,13 +66,24 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
         LibraryService.login(email, password, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("login_name", email);
-                editor.commit();
-                NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
-                nav.setCheckedItem(R.id.nav_ausleihe_fragment);
-                getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).addToBackStack("Ausleihe").commit();
+                if (input) {
+
+                    final NavigationView nvDrawer = (NavigationView) getActivity().findViewById(R.id.nvView);
+
+                    nvDrawer.getMenu().findItem(R.id.nav_login_fragment).setVisible(false);
+                    nvDrawer.getMenu().findItem(R.id.nav_registration_fragment).setVisible(false);
+                    nvDrawer.getMenu().findItem(R.id.nav_ausleihe_fragment).setVisible(true);
+                    nvDrawer.getMenu().findItem(R.id.nav_reservation_fragment).setVisible(true);
+
+                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("login_name", email);
+                    editor.commit();
+                    NavigationView nav = (NavigationView) getActivity().findViewById(R.id.nvView);
+                    nav.setCheckedItem(R.id.nav_ausleihe_fragment);
+                    getActivity().setTitle("Loans");
+                    getFragmentManager().beginTransaction().replace(R.id.flContent, (Fragment) new LoanFrag()).addToBackStack("Ausleihe").commit();
+                }
             }
 
             @Override
@@ -87,5 +98,10 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
         login();
     }
 
+    @Override
+    public void onStart() {
+        getActivity().setTitle("Login");
+        super.onResume();
+    }
 }
 

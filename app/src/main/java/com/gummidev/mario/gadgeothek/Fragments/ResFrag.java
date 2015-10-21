@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,7 +38,7 @@ public class ResFrag extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private ReservationAdapter adapter;
-    private Toolbar toolbar;
+    private ActionBar toolbar;
     private FloatingActionButton FAB;
     private DrawerLayout mDrawer;
 
@@ -70,10 +71,16 @@ public class ResFrag extends Fragment {
         if (LibraryService.isLoggedIn()) {
             recyclerView = (RecyclerView) view.findViewById(R.id.resRecyclerView);
 
-            MainActivity activity = (MainActivity) getActivity();
-            activity.setupDrawer();
+            mDrawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
 
-            getActivity().setTitle("Reservation");
+            Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+            toolbar.setNavigationIcon(R.drawable.ic_action_menu);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   mDrawer.openDrawer(GravityCompat.START);
+                }
+            });
 
 
             ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -143,6 +150,12 @@ public class ResFrag extends Fragment {
             return null;
         }
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onResume();
+        getActivity().setTitle("Reservation");
     }
 }
 
