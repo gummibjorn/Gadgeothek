@@ -81,7 +81,6 @@ public class RegFrag extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onError(String message) {
-                        //TODO ERROR HANDLING
                     }
                 }
 

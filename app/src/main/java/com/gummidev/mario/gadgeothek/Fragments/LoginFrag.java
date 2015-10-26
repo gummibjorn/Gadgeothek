@@ -60,8 +60,6 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
 
     private void login() {
 
-        // TODO: disable button onClick, enable upon onCompletion (slow DNS lookup etc.)
-
         final Button button = (Button) getView().findViewById(R.id.email_sign_in_button);
         button.setEnabled(false);
 

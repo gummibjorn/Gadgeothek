@@ -47,7 +47,6 @@ public class ResFrag extends Fragment {
      *
      * @return A new instance of fragment ResFrag.
      */
-    // TODO: Rename and change types and number of parameters
     public static ResFrag newInstance(String param1, String param2) {
         ResFrag fragment = new ResFrag();
         return fragment;
