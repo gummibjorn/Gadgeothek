@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
         // Set the menu icon instead of the launcher icon.
         final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_action_menu);
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
         final NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);

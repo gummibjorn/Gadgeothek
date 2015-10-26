@@ -74,7 +74,7 @@ public class ResFrag extends Fragment {
             mDrawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
 
             Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-            toolbar.setNavigationIcon(R.drawable.ic_action_menu);
+            toolbar.setNavigationIcon(R.drawable.ic_menu);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
