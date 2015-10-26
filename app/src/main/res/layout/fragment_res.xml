@@ -4,53 +4,13 @@
     android:layout_height="match_parent"
     tools:context="com.gummidev.mario.gadgeothek.Fragments.ResFrag">
 
-    <TableLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/resRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Gadget"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reservation Date"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Waiting Position"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Is Ready"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/resRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
+        android:layout_height="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

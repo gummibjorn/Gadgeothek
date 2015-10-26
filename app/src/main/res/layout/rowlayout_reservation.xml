@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:minHeight="72dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    >
+
+    <TextView
+        android:id="@+id/resgadName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/border"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_margin="2dp">
-
-        <TextView
-            android:id="@+id/resgadName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/resDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/waitPos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20dp" />
+        android:layout_below="@+id/resgadName"
+        >
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -38,8 +31,36 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:clickable="false"
-            android:contextClickable="false"
-            android:layout_weight="0.5" />
-    </LinearLayout>
+            />
 
+        <TextView
+            android:id="@+id/waitPosPre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:paddingLeft="8dp"
+            android:text="(" />
+
+        <TextView
+            android:id="@+id/waitPos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/waitPosPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text=")" />
+
+        <TextView
+            android:id="@+id/resDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
 </RelativeLayout>
+
