@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.gummidev.mario.gadgeothek.R;
 
@@ -58,6 +59,12 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
     }
 
     private void login() {
+
+        // TODO: disable button onClick, enable upon onCompletion (slow DNS lookup etc.)
+
+        final Button button = (Button) getView().findViewById(R.id.email_sign_in_button);
+        button.setEnabled(false);
+
         EditText editText = (EditText) getView().findViewById(R.id.email);
         final String email = editText.getText().toString();
         editText = (EditText) getView().findViewById(R.id.password);
@@ -66,8 +73,8 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
         LibraryService.login(email, password, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
+                button.setEnabled(true);
                 if (input) {
-
                     final NavigationView nvDrawer = (NavigationView) getActivity().findViewById(R.id.nvView);
 
                     nvDrawer.getMenu().findItem(R.id.nav_login_fragment).setVisible(false);
@@ -88,7 +95,8 @@ public class LoginFrag extends Fragment implements View.OnClickListener {
 
             @Override
             public void onError(String message) {
-
+                button.setEnabled(true);
+                Toast.makeText(getActivity(), "Login failed! Error was: " + message, 3).show();
             }
         });
     }
